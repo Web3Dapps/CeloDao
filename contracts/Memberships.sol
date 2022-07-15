@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface COLOInterface {
+interface PRIDEInterface {
   function mint(address account, uint256 rawAmount) external;
 }
 
@@ -14,7 +14,7 @@ contract Memberships is ERC721, Ownable {
   Counters.Counter private _tokenIds;
   string public tokenURI;
   uint256 public proposalCount;
-  COLOInterface public COLO;
+  PRIDEInterface public PRIDE;
 
   uint256 reward = 10 ether;
 
@@ -33,10 +33,10 @@ contract Memberships is ERC721, Ownable {
   constructor(
     string memory _tokenURI,
     address _governor,
-    address _COLO
-  ) ERC721("Membership", "COL") {
+    address _PRIDE
+  ) ERC721("Membership", "PRD") {
     tokenURI = _tokenURI;
-    COLO = COLOInterface(_COLO);
+    PRIDE = PRIDEInterface(_PRIDE);
     transferOwnership(_governor);
   }
 
@@ -75,7 +75,7 @@ contract Memberships is ERC721, Ownable {
     uint256 newMembershipId = _tokenIds.current();
     _mint(proposal.proposer, newMembershipId);
     _setTokenURI(newMembershipId, tokenURI);
-    COLO.mint(proposal.proposer, reward);
+    PRIDE.mint(proposal.proposer, reward);
     return newMembershipId;
   }
 

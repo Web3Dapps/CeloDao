@@ -4,7 +4,7 @@ pragma solidity ^0.7.5;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface COLOInterface {
+interface PRIDEInterface {
   function mint(address account, uint256 rawAmount) external;
 }
 
@@ -33,18 +33,18 @@ contract ProofOfAction is Ownable {
     uint256 reward;
   }
 
-  COLOInterface public PRIDE;
+  PRIDEInterface public PRIDE;
   Membership public membership;
 
   mapping(uint256 => Proof) public proofs;
   mapping(uint256 => Request) public requests;
 
   constructor(
-    address _COLO,
+    address _PRIDE,
     address _membership,
     address _governor
   ) {
-    PRIDE = COLOInterface(_COLO);
+    PRIDE = PRIDEInterface(_PRIDE);
     membership = Membership(_membership);
     transferOwnership(_governor);
   }

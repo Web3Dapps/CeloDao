@@ -4,7 +4,7 @@ pragma solidity ^0.7.5;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface COLOInterface {
+interface PRIDEInterface {
   function mint(address account, uint256 rawAmount) external;
 }
 
@@ -38,7 +38,7 @@ contract PointOfSale is Ownable {
     bool onEth;
   }
 
-  COLOInterface public COLO;
+  PRIDEInterface public PRIDE;
   Membership public membership;
 
   mapping(uint256 => Request) public requests;
@@ -46,12 +46,12 @@ contract PointOfSale is Ownable {
   mapping(address => bool) public vendors;
 
   constructor(
-    address _COLO,
+    address _PRIDE,
     address _membership,
     address _governor,
     uint256 _reward
   ) {
-    COLO = COLOInterface(_COLO);
+    PRIDE = PRIDEInterface(_PRIDE);
     membership = Membership(_membership);
     transferOwnership(_governor);
     reward = _reward;
@@ -114,7 +114,7 @@ contract PointOfSale is Ownable {
       block.timestamp > latestRewardDate[request.buyer]
     ) {
       latestRewardDate[request.buyer] = block.timestamp + DELAY_BETWEEN_BUYS;
-      COLO.mint(request.buyer, reward);
+      PRIDE.mint(request.buyer, reward);
     }
   }
 
@@ -129,7 +129,7 @@ contract PointOfSale is Ownable {
       block.timestamp > latestRewardDate[request.buyer]
     ) {
       latestRewardDate[request.buyer] = block.timestamp + DELAY_BETWEEN_BUYS;
-      COLO.mint(request.buyer, reward);
+      PRIDE.mint(request.buyer, reward);
     }
   }
 }

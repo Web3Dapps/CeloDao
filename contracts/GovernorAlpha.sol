@@ -7,7 +7,7 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/SafeCast.sol";
 
-interface COLOInterface {
+interface PRIDEInterface {
   function getPriorVotes(address account, uint256 blockNumber)
     external
     view
@@ -35,7 +35,7 @@ contract GovernorAlpha is Ownable {
 
   TimelockInterface public timelock;
 
-  COLOInterface public PRIDE;
+  PRIDEInterface public PRIDE;
 
   uint256 public proposalCount;
 
@@ -121,7 +121,7 @@ contract GovernorAlpha is Ownable {
     address _governor
   ) {
     timelock = TimelockInterface(timelock_);
-    PRIDE = COLOInterface(COLO_);
+    PRIDE = PRIDEInterface(COLO_);
     transferOwnership(_governor);
   }
 
